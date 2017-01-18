@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My map</title>
+    <meta lang="en">
+  </head>
+  <body>
+
+    <div>
+      <div id="map" style="height:400px; width:400px;"></div>
+      <button id="locationButton" onclick="getLocation()">asfd</button>
+    </div>
+
+    <script>
+      var myLocation = {lat: 0, lng: 0};
+
+      function getLocation(){
+        navigator.geolocation.getCurrentPosition(showPosition);
+      }
+      function showPosition(position){
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        myLocation = {lat: latitude, lng: longitude};
+        initMap();
+        //var location = document .getElementById("map");
+        //location.innerHTML="LAT: "+latitude+", LONG: "+longitude;
+      }
+</script>
+<script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: myLocation
+        });
+        var marker = new google.maps.Marker({
+          position: myLocation,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBydcHGCWnwNDgfd-vHsNBRea-W4ZQs5sI&callback=getLocation">
+    </script>
+  </body>
+</html>

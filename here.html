@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Where I am</title>
+    <meta lang="en">
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-core.js"
+      type="text/javascript" charset="utf-8"></script>
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-service.js"
+      type="text/javascript" charset="utf-8"></script>
+
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+      <style media="screen">
+        #box{
+          margin-top: 10px;
+          width: 640px;
+          height: 480px;
+          background-color: #6c6c6c;
+        }
+      </style>
+  </head>
+  <body onload="getLocation()">
+
+    <div class="fluid-liquid">
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4">
+          <div id="box"></div>
+          <br>
+          <button class="btn btn-primary" onclick="updateMap()">Find myself</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    var latitude=0.0;
+    var longitude=0.0;
+    function getLocation(){
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }
+    function showPosition(position){
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+      drawMap();
+    }
+    </script>
+
+    <script>
+    var map;
+    function drawMap(){
+        var platform = new H.service.Platform({
+          'app_id': 'INaRsBCy2dZPNB8IrwjP',
+          'app_code': 'ER00T024dzPXy49eD4ppWw'
+        });
+
+        var maptypes = platform.createDefaultLayers();
+
+        map = new H.Map(
+          document.getElementById('box'),
+          maptypes.normal.map,{
+            zoom: 2,
+            center:  {lng: longitude, lat: latitude}
+          });
+        }
+
+        function updateMap(){
+          map.setCenter({lng: longitude, lat: latitude});
+          map.setZoom(12);
+        }
+      </script>
+
+
+  </body>
+</html>
